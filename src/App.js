@@ -17,16 +17,7 @@ import {
   createNote as createNoteMutation,
   deleteNote as deleteNoteMutation,
 } from "./graphql/mutations";
-import { DataStore } from '@aws-amplify/datastore';
-import { Note } from './models';
 
-await DataStore.save(
-  new Note({
-    name: "Lorem ipsum dolor sit amet",
-    description: "Lorem ipsum dolor sit amet",
-    image: "Lorem ipsum dolor sit amet"
-  })
-);
 
 const App = ({ signOut }) => {
   const [notes, setNotes] = useState([]);
