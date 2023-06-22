@@ -73,27 +73,36 @@ const App = ({ signOut }) => {
     <View className="App">
       <Heading level={1}>My Notes App</Heading>
       <View as="form" margin="3rem 0" onSubmit={createNote}>
-        <Flex direction="row" justifyContent="center">
-          <TextField
-            name="name"
-            placeholder="Note Name"
-            label="Note Name"
-            labelHidden
-            variation="quiet"
-            required
-          />
-          <TextField
-            name="description"
-            placeholder="Note Description"
-            label="Note Description"
-            labelHidden
-            variation="quiet"
-            required
-          />
+        <Flex direction="row" justifyContent="center" alignItems="flex-end">
+          <Flex direction="column" marginRight="1rem">
+            <TextField
+              name="name"
+              placeholder="Note Name"
+              label="Note Name"
+              labelHidden
+              variation="quiet"
+              required
+            />
+            <TextField
+              name="description"
+              placeholder="Note Description"
+              label="Note Description"
+              labelHidden
+              variation="quiet"
+              required
+            />
+          </Flex>
           <Button type="submit" variation="primary">
             Create Note
           </Button>
         </Flex>
+        <View
+          name="image"
+          as="input"
+          type="file"
+          marginTop="1rem"
+          style={{ alignSelf: "flex-start" }}
+        />
       </View>
       <Heading level={2}>Current Notes</Heading>
       <View margin="3rem 0">
@@ -122,14 +131,6 @@ const App = ({ signOut }) => {
         ))}
       </View>
       <Button onClick={signOut}>Sign Out</Button>
-
-      {/* New View component */}
-      <View
-        name="image"
-        as="input"
-        type="file"
-        style={{ alignSelf: "end" }}
-      />
     </View>
   );
 };
