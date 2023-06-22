@@ -36,3 +36,34 @@
     transform: rotate(360deg);
   }
 }
+
+/* Additional styles */
+
+.note-container {
+  position: relative;
+}
+
+.note-image {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.note-container:hover .note-image {
+  opacity: 1;
+}
+
+.note-description:hover ~ .note-image {
+  opacity: 1;
+}
+
+.delete-button {
+  margin-left: 1rem;
+}
+
+.file-input {
+  margin-top: 1rem;
+}

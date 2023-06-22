@@ -18,7 +18,6 @@ import {
   deleteNote as deleteNoteMutation,
 } from "./graphql/mutations";
 
-
 const App = ({ signOut }) => {
   const [notes, setNotes] = useState([]);
 
@@ -73,36 +72,27 @@ const App = ({ signOut }) => {
     <View className="App">
       <Heading level={1}>My Notes App</Heading>
       <View as="form" margin="3rem 0" onSubmit={createNote}>
-        <Flex direction="row" justifyContent="center" alignItems="flex-end">
-          <Flex direction="column" marginRight="1rem">
-            <TextField
-              name="name"
-              placeholder="Note Name"
-              label="Note Name"
-              labelHidden
-              variation="quiet"
-              required
-            />
-            <TextField
-              name="description"
-              placeholder="Note Description"
-              label="Note Description"
-              labelHidden
-              variation="quiet"
-              required
-            />
-          </Flex>
+        <Flex direction="row" justifyContent="center">
+          <TextField
+            name="name"
+            placeholder="Note Name"
+            label="Note Name"
+            labelHidden
+            variation="quiet"
+            required
+          />
+          <TextField
+            name="description"
+            placeholder="Note Description"
+            label="Note Description"
+            labelHidden
+            variation="quiet"
+            required
+          />
           <Button type="submit" variation="primary">
             Create Note
           </Button>
         </Flex>
-        <View
-          name="image"
-          as="input"
-          type="file"
-          marginTop="1rem"
-          style={{ alignSelf: "flex-start" }}
-        />
       </View>
       <Heading level={2}>Current Notes</Heading>
       <View margin="3rem 0">
@@ -112,25 +102,35 @@ const App = ({ signOut }) => {
             direction="row"
             justifyContent="center"
             alignItems="center"
+            className="note-container"
           >
             <Text as="strong" fontWeight={700}>
               {note.name}
             </Text>
-            <Text as="span">{note.description}</Text>
+            <Text as="span" className="note-description">
+              {note.description}
+            </Text>
             {note.image && (
               <Image
                 src={note.image}
                 alt={`visual aid for ${note.name}`}
-                style={{ width: 400 }}
+                className="note-image"
               />
             )}
-            <Button variation="link" onClick={() => deleteNote(note)}>
+            <Button
+              variation="link"
+              onClick={() => deleteNote(note)}
+              className="delete-button"
+            >
               Delete note
             </Button>
           </Flex>
         ))}
       </View>
       <Button onClick={signOut}>Sign Out</Button>
+
+      {/* New View component */}
+      <View name="image" as="input" type="file" className="file-input" />
     </View>
   );
 };
