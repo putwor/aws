@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import "@aws-amplify/ui-react/styles.css";
-import { API, Storage } from 'aws-amplify';
+import { API, Storage } from "aws-amplify";
 import {
   Button,
   Flex,
@@ -11,7 +11,7 @@ import {
   TextField,
   View,
   withAuthenticator,
-} from '@aws-amplify/ui-react';
+} from "@aws-amplify/ui-react";
 import { listNotes } from "./graphql/queries";
 import {
   createNote as createNoteMutation,
@@ -70,7 +70,11 @@ const App = ({ signOut }) => {
   }
 
   function handleNoteClick(noteId) {
-    setSelectedNoteId(noteId);
+    if (selectedNoteId === noteId) {
+      setSelectedNoteId(null);
+    } else {
+      setSelectedNoteId(noteId);
+    }
   }
 
   return (
@@ -108,17 +112,17 @@ const App = ({ signOut }) => {
             justifyContent="center"
             alignItems="center"
             onClick={() => handleNoteClick(note.id)}
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: "pointer" }}
           >
             <Text as="strong" fontWeight={700}>
               {note.name}
             </Text>
             <Text as="span">{note.description}</Text>
-            {note.image && selectedNoteId === note.id && (
+            {selectedNoteId === note.id && note.image && (
               <Image
                 src={note.image}
                 alt={`visual aid for ${note.name}`}
-                style={{ width: 400 }}
+                style={{ width: 400, marginTop: "1rem" }}
               />
             )}
             <Button variation="link" onClick={() => deleteNote(note)}>
