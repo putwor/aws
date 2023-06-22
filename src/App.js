@@ -20,6 +20,7 @@ import {
 
 const App = ({ signOut }) => {
   const [notes, setNotes] = useState([]);
+  const [selectedNoteId, setSelectedNoteId] = useState(null);
 
   useEffect(() => {
     fetchNotes();
@@ -68,6 +69,10 @@ const App = ({ signOut }) => {
     });
   }
 
+  function handleNoteClick(noteId) {
+    setSelectedNoteId(noteId);
+  }
+
   return (
     <View className="App">
       <Heading level={1}>My Notes App</Heading>
@@ -102,26 +107,21 @@ const App = ({ signOut }) => {
             direction="row"
             justifyContent="center"
             alignItems="center"
-            className="note-container"
+            onClick={() => handleNoteClick(note.id)}
+            style={{ cursor: 'pointer' }}
           >
             <Text as="strong" fontWeight={700}>
               {note.name}
             </Text>
-            <Text as="span" className="note-description">
-              {note.description}
-            </Text>
-            {note.image && (
+            <Text as="span">{note.description}</Text>
+            {note.image && selectedNoteId === note.id && (
               <Image
                 src={note.image}
                 alt={`visual aid for ${note.name}`}
-                className="note-image"
+                style={{ width: 400 }}
               />
             )}
-            <Button
-              variation="link"
-              onClick={() => deleteNote(note)}
-              className="delete-button"
-            >
+            <Button variation="link" onClick={() => deleteNote(note)}>
               Delete note
             </Button>
           </Flex>
@@ -130,7 +130,12 @@ const App = ({ signOut }) => {
       <Button onClick={signOut}>Sign Out</Button>
 
       {/* New View component */}
-      <View name="image" as="input" type="file" className="file-input" />
+      <View
+        name="image"
+        as="input"
+        type="file"
+        style={{ alignSelf: "end" }}
+      />
     </View>
   );
 };
