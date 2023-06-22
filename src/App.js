@@ -20,7 +20,13 @@ import {
 import { DataStore } from '@aws-amplify/datastore';
 import { Note } from './models';
 
-
+await DataStore.save(
+  new Note({
+  "name": "Lorem ipsum dolor sit amet",
+  "description": "Lorem ipsum dolor sit amet",
+  "image": "Lorem ipsum dolor sit amet"
+})
+);
 
 const App = ({ signOut }) => {
   const [notes, setNotes] = useState([]);
@@ -100,22 +106,7 @@ return (
     </View>
     <Heading level={2}>Current Notes</Heading>
     <View margin="3rem 0">
-      {notes.map((note) => (
-        <Flex
-          key={note.id || note.name}
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Text as="strong" fontWeight={700}>
-            {note.name}
-          </Text>
-          <Text as="span">{note.description}</Text>
-          <Button variation="link" onClick={() => deleteNote(note)}>
-            Delete note
-          </Button>
-        </Flex>
-      ))}
+      
     </View>
     <Button onClick={signOut}>Sign Out</Button>
 
@@ -127,6 +118,22 @@ return (
       style={{ alignSelf: "end" }}
     />
   </View>
+  {notes.map((note) => (
+    <Flex
+      key={note.id || note.name}
+      direction="row"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Text as="strong" fontWeight={700}>
+        {note.name}
+      </Text>
+      <Text as="span">{note.description}</Text>
+      <Button variation="link" onClick={() => deleteNote(note)}>
+        Delete note
+      </Button>
+    </Flex>
+  ))}
 );
 
 };
